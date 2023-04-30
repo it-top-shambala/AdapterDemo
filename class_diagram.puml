@@ -1,0 +1,72 @@
+@startuml
+'https://plantuml.com/class-diagram
+hide empty members
+
+interface IDate {
++ {abstract} getDay() : int
++ {abstract} getMonth() : int
++ {abstract} getYear() : int
+}
+
+IDate <|.. Date
+class Date {
+- day : int
+- month : int
+- year : int
+
++ Date(day : int, month : int, year : int)
+
++ getDay() : int
++ getMonth() : int
++ getYear() : int
+}
+
+interface IDateTime {
++ {abstract} getDay() : int
++ {abstract} getMonth() : int
++ {abstract} getYear() : int
++ {abstract} getHour() : int
++ {abstract} getMinute() : int
++ {abstract} getSecond() : int
+}
+
+IDateTime <|.. DateTime
+class DateTime {
+- day : int
+- month : int
+- year : int
+- hour : int
+- minute : int
+- second : int
+
++ Date(day : int, month : int, year : int)
+
++ getDay() : int
++ getMonth() : int
++ getYear() : int
++ getHour() : int
++ getMinute() : int
++ getSecond() : int
+}
+
+IDate <-- AdapterToDate
+IDateTime *-- AdapterToDate
+class AdapterToDate{
+- datetime : IDateTime
+
++ AdapterToDate(datetime : IDateTime)
+
++ ToDate() : IDate
+}
+
+IDate *-- AdapterToDateTime
+IDateTime <-- AdapterToDateTime
+class AdapterToDateTime{
+- date : IDate
+
++ AdapterToDateTime(date : IDate)
+
++ ToDateTime() : IDateTime
+}
+
+@enduml
